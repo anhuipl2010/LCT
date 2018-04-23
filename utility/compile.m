@@ -5,8 +5,8 @@
 function compile()
 
 % set the values
-opts.opencv_include_path    =   'D:\Research\Library\opencv3.0\build\include'; % OpenCV include path
-opts.opencv_lib_path        =   'D:\Research\Library\opencv3.0\build\x64\vc12\lib'; % OpenCV lib path
+opts.opencv_include_path    =   '/usr/local/include/'; % OpenCV include path
+opts.opencv_lib_path        =   '/usr/local/lib/'; % OpenCV lib path
 opts.clean                  =   false; % clean mode
 opts.dryrun                 =   false; % dry run mode
 opts.verbose                =   1; % output verbosity
@@ -23,10 +23,17 @@ if opts.clean
     if opts.verbose > 0, disp(cmd); end
     if ~opts.dryrun, delete(cmd); end
 
+    cmd = fullfile(['*.mexw64']);
+    if opts.verbose > 0, disp(cmd); end
+    if ~opts.dryrun, delete(cmd); end
+
     cmd = fullfile('*.obj');
     if opts.verbose > 0, disp(cmd); end
     if ~opts.dryrun, delete(cmd); end
 
+    cmd = fullfile('*.o');
+    if opts.verbose > 0, disp(cmd); end
+    if ~opts.dryrun, delete(cmd); end
     return;
 end
 
@@ -53,7 +60,6 @@ if ~opts.dryrun, eval(cmd); end
 
 % Compile MxArray and BMS
 src = 'MxArray.cpp';
-   
 cmd = sprintf('mex %s -c %s', mex_flags, src);
 if opts.verbose > 0, disp(cmd); end
 if ~opts.dryrun, eval(cmd); end
@@ -61,11 +67,21 @@ if ~opts.dryrun, eval(cmd); end
 src = {'calcIIF.cpp'};
 % Compile the mex file
 for i = 1:numel(src)
-    obj = 'MxArray.obj';
+    obj = 'MxArray.o';
     cmd = sprintf('mex %s %s %s', mex_flags, src{i}, obj);
     if opts.verbose > 0, disp(cmd); end
     if ~opts.dryrun, eval(cmd); end
 end
+
+src = 'assignToBins1.c';
+cmd = sprintf('mex %s %s', mex_flags, src);
+if opts.verbose > 0, disp(cmd); end
+if ~opts.dryrun, eval(cmd); end
+
+src = 'gradientMex.cpp';
+cmd = sprintf('mex %s -c %s', mex_flags, src);
+if opts.verbose > 0, disp(cmd); end
+if ~opts.dryrun, eval(cmd); end
 
 end
 
@@ -78,7 +94,7 @@ function [cflags,libs] = pkg_config(opts)
     L_path = opts.opencv_lib_path;
     l_options = strcat({' -l'}, lib_names(L_path));
     if opts.debug
-        l_options = strcat(l_options,'d');    % link against debug binaries
+        l_options = strcat(l_options,'-g');    % link against debug binaries
     end
     l_options = [l_options{:}];
 
@@ -95,8 +111,13 @@ end
 
 function l = lib_names(L_path)
     %LIB_NAMES  return library names
-    d = dir( fullfile(L_path,'opencv_*.lib') );
-%     l = regexp({d.name}, '(opencv_core.+)\.lib|(opencv_imgproc.+)\.lib|(opencv_highgui.+)\.lib', 'tokens', 'once');
-    l = regexp({d.name}, '(opencv_ts.+)\.lib|(opencv_world.+)\.lib', 'tokens', 'once');
-    l = [l{:}];
+    d = dir( fullfile(L_path,'libopencv_*.so') );
+%    disp({d.name});
+    l = regexp({d.name}, 'libopencv_core.so | libopencv_imgproc.so | libopencv_highgui.so');
+%    l = regexp({d.name}, '(libopencv_core.+)\.so|(libopencv_imgproc.+)\.so|(libopencv_highgui.+)\.so', 'tokens', 'once');
+
+%    disp({l});
+%    l = regexp({d.name}, '(libopencv_ts.+)\.so|(libopencv_world.+)\.so', 'tokens', 'once');
+ %   l = [l{:}];
+    l = [{'opencv_core', 'opencv_imgproc','opencv_highgui'}];
 end

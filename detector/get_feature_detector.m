@@ -16,6 +16,7 @@ ksize=4;
 f_iif=255-calcIIF(I(:,:,1),[ksize ksize],nbin);
 
 f_chn=cat(3,f_iif, I);
+%f_chn = I;
 
 feat=zeros(size(f_chn,1), size(f_chn, 2), nth*size(f_chn,3));
 

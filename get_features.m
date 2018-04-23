@@ -21,7 +21,8 @@ function x = get_features(im, config, cos_window)
     h2=h2(cell_size:cell_size:end,cell_size:cell_size:end,:);
 
     x=cat(3,x,h1,h2);
-        	
+ %   x=cat(3,x,h1);
+ 
 	%process with cosine window if needed
 	if ~isempty(cos_window),
 		x = bsxfun(@times, x, cos_window);

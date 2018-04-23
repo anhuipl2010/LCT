@@ -32,12 +32,6 @@ Mat doWork(InputArray _src,Size ksize,int nbins)
 }
 
 
-
-
-
-
-
-
 /**
  * Main entry called from Matlab
  * @param nlhs number of left-hand-side arguments

@@ -59,3 +59,23 @@ Website: http://visual-tracking.net/
 
 [4] P. Dollar, "Piotr's Image and Video Matlab Toolbox (PMT)".
 Website: http://vision.ucsd.edu/~pdollar/toolbox/doc/index.html
+
+
+## RUN
+Envirements: 
+Ubuntu16.04
+Matlab2017a
+vlfeat-0.9.21
+
+Start matlab by (in case of missing symbol error!):
+```
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 \
+LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
+/media/elab/sdd/R2017a/bin/matlab
+```
+then run in the matlab:
+'''
+cd /media/elab/sdd/mycodes/tracker/lct-tracker/
+startup
+run_tracker
+'''
