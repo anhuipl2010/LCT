@@ -1,3 +1,23 @@
+## Direct RUN on the settings:
+Envirements: 
+Ubuntu16.04
+Matlab2017a
+vlfeat-0.9.21
+
+Start matlab by (in case of missing symbol error!):
+```
+LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 \
+LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
+/media/elab/sdd/R2017a/bin/matlab
+```
+then run in the matlab:
+'''
+cd /media/elab/sdd/mycodes/tracker/LCT/
+startup
+run_tracker
+'''
+
+
 ## Adaptive Correlation Filters with Long-Term and Short-Term Memory for Object Tracking (IJCV 2018)
 
 Chao Ma, Jia-Bin Huang, Xiaokang Yang, and Ming-Hsuan Yang
@@ -32,12 +52,14 @@ The script 'run_tracker' without parameters is to choose a video and test the pr
 
 We also provide the interface 'run_lct2' to reproduce our results on OBT tracking benchmark
 
- run_tracker
+ * run_tracker:
+
    Without any parameters, will ask you to choose a video, and track the objects, 
    and show the results in an interactive figure. Press 'Esc' to stop the tracker early. 
    You can navigate the video using the scrollbar at the bottom.
 
- run_tracker VIDEO
+ * run_tracker VIDEO:
+
    Allows you to select a VIDEO by its name. 'all' will run all videos
    and show average statistics. 'choose' will select one interactively.
 
@@ -61,21 +83,4 @@ Website: http://visual-tracking.net/
 Website: http://vision.ucsd.edu/~pdollar/toolbox/doc/index.html
 
 
-## RUN
-Envirements: 
-Ubuntu16.04
-Matlab2017a
-vlfeat-0.9.21
 
-Start matlab by (in case of missing symbol error!):
-```
-LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libstdc++.so.6 \
-LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
-/media/elab/sdd/R2017a/bin/matlab
-```
-then run in the matlab:
-'''
-cd /media/elab/sdd/mycodes/tracker/lct-tracker/
-startup
-run_tracker
-'''
