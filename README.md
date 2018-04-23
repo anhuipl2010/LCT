@@ -11,11 +11,11 @@ LD_LIBRARY_PATH=/usr/lib/x86_64-linux-gnu \
 /media/elab/sdd/R2017a/bin/matlab
 ```
 then run in the matlab:
-'''
+```
 cd /media/elab/sdd/mycodes/tracker/LCT/
 startup
 run_tracker
-'''
+```
 
 
 ## Adaptive Correlation Filters with Long-Term and Short-Term Memory for Object Tracking (IJCV 2018)
